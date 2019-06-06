@@ -1,0 +1,7 @@
+root/!qaz@wsx
+postgres db server
+192.168.1.119    postgres    slave   port 5432
+192.168.1.200    postgres    master  port 5432
+redis server
+192.168.1.176    slave port 6379  
+192.168.1.183    master port 6379 

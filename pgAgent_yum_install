@@ -1,0 +1,160 @@
+安装pgAgent
+
+yum install pgagent_95
+1
+输入：
+
+[root@localhost ~]# yum install pgagent_95
+Loaded plugins: fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+ * base: mirrors.163.com
+ * epel: mirrors.ustc.edu.cn
+ * extras: mirrors.163.com
+ * updates: mirrors.163.com
+Resolving Dependencies
+--> Running transaction check
+---> Package pgagent_95.x86_64 0:3.4.0-9.rhel7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+========================================================================================
+ Package              Arch             Version                   Repository        Size
+========================================================================================
+Installing:
+ pgagent_95           x86_64           3.4.0-9.rhel7             pgdg95            42 k
+
+Transaction Summary
+========================================================================================
+Install  1 Package
+
+Total download size: 42 k
+Installed size: 151 k
+Is this ok [y/d/N]: y
+Downloading packages:
+pgagent_95-3.4.0-9.rhel7.x86_64.rpm                              |  42 kB  00:00:02     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : pgagent_95-3.4.0-9.rhel7.x86_64                                      1/1 
+  Verifying  : pgagent_95-3.4.0-9.rhel7.x86_64                                      1/1 
+
+Installed:
+  pgagent_95.x86_64 0:3.4.0-9.rhel7                                                     
+
+Complete!
+
+在数据库上配置pgAgent
+
+找到pgagent.sql和pgagent_upgrade.sql文件路径，并在需要job功能的数据库上执行 
+将会在数据库中创建一个pgagent模式，并创建相应的功能表和函数
+
+psql -U postgres
+postgres=# \i /usr/share/pgagent_95-3.4.0/pgagent.sql
+postgres=# \i /usr/share/pgagent_95-3.4.0/pgagent_upgrade.sql
+postgres=# \q
+1
+2
+3
+4
+输入：
+
+[root@localhost pgagent_95-3.4.0]# psql -U postgres
+psql (9.5.9)
+Type "help" for help.
+
+postgres=# \i /usr/share/pgagent_95-3.4.0/pgagent.sql
+BEGIN
+CREATE SCHEMA
+COMMENT
+CREATE TABLE
+COMMENT
+CREATE TABLE
+CREATE INDEX
+COMMENT
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+CREATE TABLE
+COMMENT
+COMMENT
+CREATE TABLE
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+CREATE INDEX
+COMMENT
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+COMMENT
+CREATE TABLE
+CREATE INDEX
+COMMENT
+COMMENT
+CREATE TABLE
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE FUNCTION
+CREATE FUNCTION
+COMMENT
+CREATE FUNCTION
+COMMENT
+CREATE FUNCTION
+COMMENT
+CREATE TRIGGER
+COMMENT
+CREATE FUNCTION
+COMMENT
+CREATE TRIGGER
+COMMENT
+CREATE FUNCTION
+COMMENT
+CREATE TRIGGER
+COMMENT
+COMMIT
+postgres=# \i /usr/share/pgagent_95-3.4.0/pgagent_upgrade.sql
+CREATE FUNCTION
+CREATE FUNCTION
+COMMENT
+psql:/usr/share/pgagent_95-3.4.0/pgagent_upgrade.sql:49: ERROR:  column "jstconnstr" of relation "pga_jobstep" already exists
+ALTER TABLE
+ALTER TABLE
+postgres=# \q
+
+如果数据库满足以下条件： 
+* PostgreSQL 版本高于9.1 
+* pgAgent 版本高于3.4.0
+
+可使用简易安装模式：
+
+[root@localhost pgagent_95-3.4.0]# psql -U postgres
+psql (9.5.9)
+Type "help" for help.
+
+postgres=# CREATE EXTENSION pgagent;
+
+效果相同
+
+启动pgAgent守护程序
+语法：
+
+pgagent_95 [options] <connect-string>
+options:
+-f run in the foreground (do not detach from the terminal)
+-t <poll time interval in seconds (default 10)>
+-r <retry period after connection abort in seconds (>=10, default 30)>
+-s <log file (messages are logged to STDOUT if not specified>
+-l <logging verbosity (ERROR=0, WARNING=1, DEBUG=2, default 0)>
+
+
+实例：
+
+[root@localhost pgagent_95-3.4.0]# pgagent_95 hostaddr=192.168.230.134 dbname=postgres user=postgres password=oracle

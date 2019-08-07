@@ -1,0 +1,38 @@
+HES2.0T2测试服务器
+1. WEB UI
+地址:  http://192.168.60.28:4201/
+账号密码:  admin    /  Welcome01!
+
+2. Hes 服务接口地址
+地址: http://192.168.60.28:9100
+
+3. kms 
+接口管理地址:   192.168.60.28:9620
+rmi 暴露接口:    192.168.60.28:19600
+
+4. 通讯接口:
+地址:   192.168.60.28:9999
+
+5. AHE:
+地址:   192.168.60.28:19000
+
+6. FEP:
+地址: 192.168.60.28:8001   
+
+7. Redis :
+   192.168.60.28:6379 
+
+8. Postgresql
+  用户名 密码: hes  / cienergy@123
+  地址: url: jdbc:postgresql://192.168.60.204:5432/hes_bpdb?useLegacyDatetimeCode=false
+  
+9.unifiedsystem
+http://192.168.60.28:4200/prepay
+账号密码： admin    /   adMin@dpdc
+
+10.服务.168.60.28器信息
+192.168.60.28
+ssh login
+port:22
+root/lynylyny
+app路径： /home/app/nginx-data
